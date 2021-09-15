@@ -1,0 +1,112 @@
+<body>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
+<section class="section-content padding-y bg">
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+<div class="card">
+	<div class="row no-gutters">
+		<aside class="col-md-6">
+<article class="gallery-wrap"> 
+	<div class="img-big-wrap">
+	   <a href="#"><img src={{hotel.image}}></a>
+	</div> <!-- img-big-wrap.// -->
+	
+</article> <!-- gallery-wrap .end// -->
+		</aside>
+		<main class="col-md-6 border-left">
+<article class="content-body">
+
+<h2 class="title">{{hotel.name}}</h2>
+
+<div class="mb-3"> 
+	<var id="minPrice" class="price h4">{{hotel.MinimumPrize}}</var> Rs <span style="color:#f2f3f4">(For 1 day)</span> 
+    <input type="hidden" id="extra" value={{hotel.extraDays}}/>
+</div> 
+
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+
+<hr>
+	<div class="row">
+         <div class="form-group">
+                  <input class="form-control" type="text" name="dates" id="dates" placeholder="Select your Dates"
+                    autocomplete="off" required/>
+                  <i class="icon_calendar"></i>
+                </div>
+                <br>
+             
+		
+	</div> <!-- row.// -->
+	<div class="mb-3"> 
+	<var id="totalOutput" class="price h4"></var> <p id="daysOutput"></p>
+</div> 
+	<hr>
+	<a  class="btn  btn-primary"> <span class="text">Pay</span>   </a>
+</article> <!-- product-info-aside .// -->
+		</main> <!-- col.// -->
+	</div> <!-- row.// -->
+</div> <!-- card.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+
+
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script>
+    function countTotal(){
+ let date= document.getElementById("dates").value
+ alert("hai")
+    fetch("/getTotalRate",{method: "POST",headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(date)}).then((response)=>{
+        })
+    }
+   
+</script>
+<script>
+    $(function () {
+      'use strict';
+      $('input[name="dates"]').daterangepicker({
+        autoUpdateInput: false,
+        locale: {
+          cancelLabel: 'Clear'
+        }
+      });
+      $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+        $(this).val(picker.startDate.format('MM-DD-YYYY') + ' > ' + picker.endDate.format('MM-DD-YYYY'));
+      });
+      $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
+        $(this).val('');
+      });
+    })
+    $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+        let dateFrom = picker.startDate.format('MM-DD-YYYY')
+        let dateTo = picker.endDate.format('MM-DD-YYYY')
+        $(this).val(dateFrom + ' > ' + dateTo);
+        let reserveDays = Math.round((new Date(dateTo)- new Date(dateFrom))/(1000*60*60*24)) + 1
+        updateTotal(reserveDays)
+        function updateTotal(reserveDays1){
+            {{!-- alert("hai") --}}
+                
+            var price=parseInt(document.getElementById("minPrice").innerText) 
+         
+            var extraPrice=parseInt(document.getElementById("extra").value) 
+            var days=parseInt(reserveDays1) 
+          console.log(price,extraPrice,days)
+            totalPrice=price+(days-1)*extraPrice
+            document.getElementById("daysOutput").innerHTML="for "+days+" days";
+            document.getElementById("totalOutput").innerHTML="TOTAL: "+totalPrice+" Rs"
+
+        }
+ 
+      });
+    ;
+  </script>
+  
+</body>

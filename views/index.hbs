@@ -1,0 +1,66 @@
+<body>
+
+
+
+
+<!-- ========================= SECTION MAIN ========================= -->
+<section class="section-intro padding-y-sm">
+<div class="container">
+
+<div class="intro-banner-wrap">
+	<img style="height: 400px; width: 100%;"  src="https://www.mainlymaldives.co.uk/wp-content/uploads/2015/03/Hideaway-Beach-Resort-Maldives-Beach-banner.jpg" class="img-fluid rounded">
+</div>
+
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION MAIN END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+<div class="container">
+
+<header class="section-heading">
+	<a href="./store.html" class="btn btn-outline-primary float-right">See all</a>
+    <div style="text-align: center">
+<h3 class="section-title">Popular Hotels In Your Area</h3>
+    </div>
+	
+</header><!-- sect-heading -->
+
+	
+<div class="row">
+    {{#each hotels}}
+	<div class="col-md-4">
+		<div class="card card-product-grid">
+			<a href="/hotelDetails?id={{this._id}}" class="img-wrap"> <img src={{this.image}}> </a>
+			<figcaption class="info-wrap">
+				<a href="/hotelDetails?id={{this._id}}" class="title">{{this.name}}</a>
+				<div class="price mt-1">{{this.MinimumPrize}} Rs <span style="color:#f2f3f4">(For 1 day)</span></div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+       
+	</div> <!-- col.// -->
+     {{/each}}
+</div> <!-- row.// -->
+
+</div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+
+
+
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="section-footer border-top">
+	<div class="container">
+		<section class="footer-bottom border-top row">
+			<div class="col-md-2">
+				<p class="text-muted">@2021 hotelbooking.com </p>
+			</div>
+			
+		</section>
+	</div><!-- //container -->
+</footer>
+<!-- ========================= FOOTER END // ========================= -->
+
+</body>
